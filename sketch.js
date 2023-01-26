@@ -2,8 +2,8 @@
 var gremio;
 var gremioImg;
 var chao;
-var chaoImg;
-var estadoJogo = "play";
+
+
 //função que carrega imagens
 function preload()
 {
@@ -15,12 +15,15 @@ function preload()
 function setup()
 {
     //cria tamanho do fundo da tela
-    createCanvas(800,400);
+    createCanvas(1000,600);
     //criar sprites
-    gremio = createSprite(200,200,10,10);
+    gremio = createSprite(500,300,100,100);
     //carregar imagem
     gremio.addImage("gremio", gremioImg);
     //altera o tamanho
+    gremio.scale = 0.5;
+    chao = createSprite(500,500,100,5);       
+
 }
 //função que executa o programa até que seja parado
 function draw()
@@ -28,44 +31,19 @@ function draw()
     //colocar cor de fundo
     background("#6959CD");
     //condição para pular
-    if (estadoJogo==="play")
-    {
-        //movimento pro chão e renicia o chão
-        gremio.velocityX = -2;
-            if(gremio.x<0)
-            {
-                gremio.x = gremio.width/2;
-            } 
-        if(keyDown("space"))
-        {
-        //o que acontece se a condição for verdadeira
-        gremio.velocityY = -5;
-        //adicionar gravidade ao tRex
-        gremio.velocityY = gremio.velocityY + 0.5;
-        //altera o tamanho
-        gremio.scale = 1;
-        //alterar um posição esepecífica
-        gremio.x = 300;
-        //configurações o chão
-        chao = createSprite(100,140,150,20);
-        //chao.addImage("chao", chaoImg);
-        chaoInvisivel = createSprite(80, 155, 100, 20);
-        chaoInvisivel.visible = false;
+    //movimento pro chão e renicia o chão
+    //o que acontece se a condição for verdadeira
+    //adicionar gravidade ao tRex
+    if(keyDown("space")){
+        gremio.velocityY = -7;
         }
-        else if(estadoJogo==="end")
-        {
-            //parar a velocidade
-            gremio.velocityX = 0;
-            gremio.velocityY = 0;
-        }    
+        gremio.velocityY = gremio.velocityY + 1;
+        gremio.collide(chao);
+        //altera o tamanho
+        //alterar um posição esepecífica
         //configurações o chão
-        // chao = createSprite(100,140,150,20);
-        // chao.addImage("chao", chaoImg);
-        //chaoInvisivel = createSprite(80, 155, 100, 20);
-        //chaoInvisivel.visible = false;
-        
+        chao.visible = false;   
         //exibir texto de instrução
         //comando que desenha sprites
         drawSprites();
-    }
 }
